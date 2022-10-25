@@ -1,4 +1,4 @@
-module wserve
+module github.com/caozhigang515/wserve
 
 go 1.18
 
