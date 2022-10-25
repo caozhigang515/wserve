@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 )
 
-var _ IUser = (*DUser)(nil)
+//var _ IUser = (*DUser)(nil)
 
 type IUser interface {
 	compare(interface{}) bool
