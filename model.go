@@ -8,16 +8,16 @@ import (
 //var _ IUser = (*DUser)(nil)
 
 type IUser interface {
-	compare(interface{}) bool
-	major() interface{}
+	Compare(interface{}) bool
+	Major() interface{}
 }
 
 type DUser struct {
 	Addr string
 }
 
-func (u *DUser) compare(addr interface{}) bool {
-	a, err := json.Marshal(u.major())
+func (u *DUser) Compare(addr interface{}) bool {
+	a, err := json.Marshal(u.Major())
 	if err != nil {
 		return false
 	}
@@ -29,7 +29,7 @@ func (u *DUser) compare(addr interface{}) bool {
 
 }
 
-func (u *DUser) major() interface{} {
+func (u *DUser) Major() interface{} {
 	return u.Addr
 }
 

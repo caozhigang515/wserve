@@ -73,7 +73,7 @@ func (h *Hub) listen() {
 				fmt.Println("p2p message: ", msg.rb.From, msg.rb.To, string(msg.GetBody().Bytes()))
 			}
 			for client := range h.clients {
-				if client.u.compare(msg.rb.To) {
+				if client.u.Compare(msg.rb.To) {
 					select {
 					case client.send <- msg.rb.Bytes():
 					default:

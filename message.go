@@ -40,7 +40,7 @@ func (m *Message) OffClient(v interface{}) {
 		return
 	}
 	for client, _ := range m.cli.hub.clients {
-		if client.u.compare(v) {
+		if client.u.Compare(v) {
 			client.closed()
 		}
 	}
