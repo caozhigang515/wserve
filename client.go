@@ -49,7 +49,7 @@ func (c *Client) readHeartbeat() {
 		}
 		//rb.From = c.parse(rb.ITo)
 		rb.IFrom = c.u
-		rb.From = c.u.major()
+		rb.From = c.u.Major()
 		msg := &Message{rb: &rb, cli: c, Request: c.req}
 		switch rb.Type {
 		case "system":
