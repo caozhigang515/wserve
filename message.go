@@ -17,7 +17,7 @@ func (m *Message) GetBody() *Body {
 func (m *Message) SendMessage(v interface{}) {
 	m.rb.Message = v
 	m.rb.To = m.rb.From
-	//m.rb.From = "system"
+	m.rb.From = "system"
 	m.cli.hub.alone <- m
 }
 

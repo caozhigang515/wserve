@@ -2,7 +2,6 @@ package wserve
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
@@ -44,10 +43,11 @@ func (c *Client) readHeartbeat() {
 		}
 		var rb Body
 		if err = json.Unmarshal(message, &rb); err != nil {
-			fmt.Println("无效数据")
+			_ = c.conn.WriteJSON(Body{
+				Message: err.Error(),
+			})
 			continue
 		}
-		//rb.From = c.parse(rb.ITo)
 		rb.IFrom = c.u
 		rb.From = c.u.Major()
 		msg := &Message{rb: &rb, cli: c, Request: c.req}
