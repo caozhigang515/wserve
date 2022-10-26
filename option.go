@@ -11,6 +11,7 @@ type options struct {
 	MaxMessageSize  int64
 	Certification   func(*http.Request) (IUser, error)
 	DeBug           bool
+	Permissions     func(*http.Request, string) bool
 }
 
 func DefaultOptions() *options {
@@ -76,5 +77,11 @@ func SetCertification(fn func(*http.Request) (IUser, error)) Option {
 func Debug() Option {
 	return func(o *options) {
 		o.DeBug = true
+	}
+}
+
+func SetPermissions(fn func(*http.Request, string) bool) Option {
+	return func(o *options) {
+		o.Permissions = fn
 	}
 }

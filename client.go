@@ -2,8 +2,8 @@ package wserve
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/websocket"
-	"log"
 	"net/http"
 	"time"
 )
@@ -37,7 +37,9 @@ func (c *Client) readHeartbeat() {
 		_, message, err := c.conn.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-				log.Printf("error: %v", err)
+				if c.o.DeBug {
+					fmt.Println(err.Error())
+				}
 			}
 			break
 		}
@@ -53,7 +55,13 @@ func (c *Client) readHeartbeat() {
 		msg := &Message{rb: &rb, cli: c, Request: c.req}
 		switch rb.Type {
 		case "system":
-			c.hub.operate <- msg
+			if c.o.Permissions == nil || c.o.Permissions(c.req, rb.Operate) {
+				c.hub.operate <- msg
+			} else {
+				_ = c.conn.WriteJSON(Body{
+					Message: "do not have permission",
+				})
+			}
 		case "user":
 			c.hub.alone <- msg
 		case "radio":
