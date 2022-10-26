@@ -8,3 +8,4 @@
 /dataSources.local.xml
 .idea/
 main/
+main/main.go
