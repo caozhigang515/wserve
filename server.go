@@ -14,6 +14,10 @@ type WServe struct {
 	o   *options
 }
 
+func (ws *WServe) GetHub() *Hub {
+	return ws.hub
+}
+
 func (ws *WServe) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	conn, err := upgrader.Upgrade(w, req, nil)
 	if err != nil {
