@@ -38,6 +38,12 @@ func (h *Hub) UseOperate(operate string, handle Operate) {
 	h.operates[operate] = handle
 }
 
+func (h *Hub) Broadcast(body *Body) {
+	msg := Message{}
+	msg.rb = body
+	h.broadcast <- &msg
+}
+
 func (h *Hub) listen() {
 	for {
 		select {
